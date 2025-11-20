@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Storage
+storage/media/*
+storage/recordings/*
+!storage/media/.gitkeep
+!storage/recordings/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Test files
+*_test.go
+tests/
+
+# Temporary files
+tmp/
+temp/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
