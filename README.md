@@ -1,246 +1,300 @@
 # Vibecoded WA Client
 
-> 🎵 A fully open-source WhatsApp Business client with messaging AND voice calling, built entirely through vibecoding
+> 🍓 A self-hosted WhatsApp Business API client with a beautiful React frontend
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Status](https://img.shields.io/badge/Status-Planning-yellow)](./docs/PRD.md)
 [![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?logo=go)](https://go.dev/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://react.dev/)
 
-## 🚀 What is This?
+## 🎯 What is This?
 
-A self-hosted, production-ready WhatsApp Business API client that provides:
+A production-ready WhatsApp Business API client that you can self-host. Built with Go backend and React frontend, featuring a beautiful strawberry-themed UI.
 
-### Messaging (Phase 1-3)
-- ✅ **REST API** for sending/receiving WhatsApp messages
-- ✅ **Webhook handling** for real-time message events
-- ✅ **Contact & conversation management**
-- ✅ **Message history & search**
-- ✅ **MCP server** for Claude AI integration
-- ✅ **Docker deployment** for easy self-hosting
+## ✨ Available Features
 
-### Voice Calling (Phase 4) 🎙️ **NEW**
-- ✅ **Inbound & outbound voice calls** via SIP/WebRTC
-- ✅ **Automatic call recording** with storage
-- ✅ **AI transcription** (Whisper/Deepgram)
-- ✅ **Voice agent integration** (Pipecat-like)
-- ✅ **Claude voice integration** via MCP
-- ✅ **Call analytics** and searchable transcripts
+### Backend (REST API)
+- ✅ Send text messages via WhatsApp
+- ✅ Send media messages (images, documents, audio, video)
+- ✅ Send template messages
+- ✅ Receive incoming messages via webhooks
+- ✅ Contact management (auto-creation, search, updates)
+- ✅ Message history and search
+- ✅ Template management
+- ✅ API key authentication
+- ✅ Rate limiting
+- ✅ Comprehensive logging
 
-Built entirely through **vibecoding** (AI-assisted development) to showcase how modern AI tools can help create production-quality software.
+### Frontend (React + Tailwind)
+- ✅ Messages page with real-time messaging interface
+- ✅ Contacts page with search and management
+- ✅ Templates page for message templates
+- ✅ Strawberry theme design system
+- ✅ Responsive layout
+- ✅ Toast notifications
+- ✅ TypeScript for type safety
 
-## 🎯 Status
+### Infrastructure
+- ✅ SQLite database (development) / PostgreSQL (production)
+- ✅ Docker & Docker Compose setup
+- ✅ Environment-based configuration
+- ✅ Health check endpoints
+- ✅ Auto-migrations
+- ✅ Graceful shutdown
 
-**Current Phase:** 🟡 Planning & Documentation
+## 🚀 Quick Start
 
-We're currently finalizing the PRD and architecture before starting development.
+### Prerequisites
 
-📚 **Documentation:**
-- [PRD.md](./docs/PRD.md) - Messaging features (Phases 1-3)
-- [PRD_VOICE_CALLING.md](./docs/PRD_VOICE_CALLING.md) - Voice calling features (Phase 4)
-- [PROJECT_INDEX.md](./docs/PROJECT_INDEX.md) - Documentation guide
+- Go 1.21+
+- Node.js 18+
+- WhatsApp Business API credentials
+- Docker (optional)
 
-## 🚫 Contribution Policy
+### Backend Setup
 
-This is a **solo-maintained project**. I am not accepting pull requests, issues, or external contributions at this time.
-
-**However, you are free to:**
-- ✅ Fork this project and build your own version
-- ✅ Modify it for your needs
-- ✅ Run your own instance
-- ✅ Create derivative works
-- ✅ Use it commercially (MIT License)
-
-If you want to build on this project, please fork it and develop independently.
-
-## 📋 Features
-
-### Messaging Features (Phases 1-3)
-- Send text, media, and template messages via REST API
-- Receive WhatsApp messages through webhooks
-- Store and query message history
-- Manage contacts automatically
-- Full-text message search
-- PostgreSQL database for persistence
-
-### Voice Features (Phase 4) 🎙️
-- **Make & receive voice calls** on WhatsApp
-- **Automatic recording** of all calls (stereo, multi-format)
-- **AI transcription** with speaker diarization
-- **Voice AI agents** for automated conversations
-- **Searchable transcripts** across all calls
-- **Call analytics** and reporting
-
-### MCP Integration (Claude)
-**Messaging Tools:**
-- Send WhatsApp messages through natural language
-- Query message history conversationally
-- Search contacts and conversations
-
-**Voice Tools:** 🎙️
-- Make voice calls via Claude
-- Retrieve call transcripts
-- Search call history
-- Analyze call patterns
-
-### DevOps
-- Docker containerization
-- Docker Compose setup
-- Environment-based configuration
-- Health check endpoints
-- Prometheus metrics
-- S3/Minio for media storage
-
-## 🏗️ Architecture
-
+1. **Clone the repository**
+```bash
+git clone https://github.com/ashoksahoo/vibecode-wa-business.git
+cd vibecode-wa-business
 ```
-┌──────────────────┐
-│   Your App       │
-│  (Any Language)  │
-└────────┬─────────┘
-         │ REST API
-┌────────▼─────────────────┐
-│  Vibecoded WA Client     │
-│  (Go + Gin + GORM)       │
-│  ┌────────────────────┐  │
-│  │  REST API          │  │
-│  │  Webhook Handler   │  │
-│  │  MCP Server        │  │
-│  │  SIP/WebRTC 🎙️   │  │
-│  │  Voice Agents 🎙️  │  │
-│  └────────────────────┘  │
-└────────┬────────┬────────┘
-         │        │
-    ┌────▼────┐  │
-    │PostgreSQL│  │
-    │+ Minio  │  │
-    └─────────┘  │
-          ┌──────▼────────────┐
-          │WhatsApp Business  │
-          │  Cloud API        │
-          │  SIP/WebRTC 🎙️  │
-          └───────────────────┘
+
+2. **Configure environment**
+```bash
+cp .env.example .env
+# Edit .env with your WhatsApp API credentials
 ```
+
+3. **Run the backend**
+```bash
+# Development (uses SQLite by default)
+go run cmd/server/main.go
+
+# Or with make
+make run
+```
+
+The API will be available at `http://localhost:8080`
+
+### Frontend Setup
+
+1. **Install dependencies**
+```bash
+cd frontend
+npm install
+```
+
+2. **Configure environment**
+```bash
+cp .env.example .env
+# Edit .env with your API configuration
+```
+
+3. **Run the frontend**
+```bash
+npm run dev
+```
+
+The frontend will be available at `http://localhost:5173`
+
+### Using Docker
+
+```bash
+# Start everything (uses SQLite)
+docker-compose up
+
+# With PostgreSQL (for production)
+docker-compose --profile postgres up
+```
+
+## 📊 Database Options
+
+### Development (SQLite - Default)
+No setup needed! The SQLite database is created automatically.
+
+```env
+DB_DRIVER=sqlite
+DB_SQLITE_PATH=./vibecoded.db
+```
+
+### Production (PostgreSQL)
+For production deployments with higher load:
+
+```env
+DB_DRIVER=postgres
+DB_HOST=your-postgres-host
+DB_PORT=5432
+DB_USER=your-user
+DB_PASSWORD=your-password
+DB_NAME=vibecoded_wa
+```
+
+Switch between databases by changing the `DB_DRIVER` environment variable.
+
+## 📡 API Endpoints
+
+### Messages
+- `POST /api/v1/messages` - Send a message
+- `GET /api/v1/messages` - List messages
+- `GET /api/v1/messages/:id` - Get message
+- `GET /api/v1/messages/search` - Search messages
+
+### Contacts
+- `GET /api/v1/contacts` - List contacts
+- `GET /api/v1/contacts/:id` - Get contact
+- `PATCH /api/v1/contacts/:id` - Update contact
+- `GET /api/v1/contacts/search` - Search contacts
+
+### Templates
+- `GET /api/v1/templates` - List templates
+- `POST /api/v1/templates` - Create template
+- `GET /api/v1/templates/:id` - Get template
+- `PATCH /api/v1/templates/:id` - Update template
+- `DELETE /api/v1/templates/:id` - Delete template
+
+### Webhooks
+- `GET /webhooks/whatsapp` - Webhook verification
+- `POST /webhooks/whatsapp` - Receive webhook events
+
+### System
+- `GET /health` - Health check
+
+## 🎨 Frontend Features
+
+Built with the **Strawberry Theme** design system:
+
+- **Primary Color**: Strawberry Red (#f43f5e)
+- **Success Color**: Leaf Green (#22c55e)
+- **Font**: Inter
+- **Components**: Fully responsive, accessible, with smooth animations
 
 ## 🛠️ Tech Stack
 
-### Core
-- **Language:** Go 1.21+
-- **Web Framework:** Gin
-- **Database:** PostgreSQL + GORM
-- **Deployment:** Docker
+### Backend
+- **Language**: Go 1.21+
+- **Framework**: Gin (web framework)
+- **ORM**: GORM
+- **Database**: SQLite (dev) / PostgreSQL (prod)
+- **API**: WhatsApp Business Cloud API
 
-### Voice (Phase 4) 🎙️
-- **SIP:** sipgo
-- **WebRTC:** pion/webrtc
-- **Codecs:** Opus
-- **Transcription:** Whisper / Deepgram
-- **Storage:** S3 / Minio
+### Frontend
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Router**: React Router
+- **HTTP Client**: Axios
+- **Icons**: Lucide React
 
-### APIs
-- **Messaging:** WhatsApp Cloud API
-- **Voice:** WhatsApp Business SIP/WebRTC
+## 📁 Project Structure
+
+```
+vibecoded-wa-client/
+├── backend/
+│   ├── cmd/server/          # Application entry point
+│   ├── internal/
+│   │   ├── api/             # HTTP handlers & routes
+│   │   ├── config/          # Configuration
+│   │   ├── database/        # Database connection
+│   │   ├── models/          # Data models
+│   │   ├── repositories/    # Data access layer
+│   │   ├── services/        # Business logic
+│   │   └── whatsapp/        # WhatsApp client
+│   └── pkg/                 # Utilities
+│
+└── frontend/
+    ├── src/
+    │   ├── components/      # UI components
+    │   ├── pages/           # Page components
+    │   ├── layouts/         # Layout components
+    │   ├── services/        # API client
+    │   └── types/           # TypeScript types
+    └── dist/                # Production build
+```
+
+## 🔜 Coming Soon
+
+### Voice Calling 🎙️
+- Make & receive voice calls on WhatsApp
+- Automatic call recording
+- AI transcription (Whisper/Deepgram)
+- Voice AI agents
+- Searchable call history
+- Call analytics
+
+### Enhanced Features
+- Interactive messages (buttons, lists)
+- Message scheduling
+- Bulk messaging
+- Analytics dashboard
+- Multi-account support
+- Webhook forwarding
+
+### Integrations
+- MCP server for Claude AI integration
+- Prometheus metrics
+- S3/Minio for media storage
+
+## 🚫 Contribution Policy
+
+This is a **solo-maintained project**. I am not accepting pull requests or external contributions.
+
+**However, you are free to:**
+- ✅ Fork and modify
+- ✅ Use commercially (MIT License)
+- ✅ Create derivative works
 
 ## 📖 Documentation
 
-- **[PRD.md](./docs/PRD.md)** - Complete product requirements (messaging)
-- **[PRD_VOICE_CALLING.md](./docs/PRD_VOICE_CALLING.md)** - Voice calling extension
-- **[ROADMAP.md](./docs/ROADMAP.md)** - Week-by-week timeline
-- **[PROJECT_INDEX.md](./docs/PROJECT_INDEX.md)** - Documentation guide
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Fork & contribution policy
-- Architecture Guide - *Coming soon*
-- API Reference - *Coming soon*
-- Deployment Guide - *Coming soon*
-
-## 🚦 Roadmap
-
-### Phase 1: Foundation (Weeks 1-2)
-- [x] PRD and planning
-- [ ] Core infrastructure setup
-- [ ] Send/receive messages
-- [ ] Webhooks
-
-### Phase 2: Core Features (Weeks 3-4)
-- [ ] Contact management
-- [ ] Media messages
-- [ ] Templates
-- [ ] Message search
-
-### Phase 3: MCP Server (Weeks 5-6)
-- [ ] JSON-RPC implementation
-- [ ] Claude integration tools
-- [ ] Testing and documentation
-
-### Phase 4: Voice Calling (Weeks 9-12) 🎙️
-- [ ] SIP/WebRTC infrastructure
-- [ ] Call recording
-- [ ] Transcription pipeline
-- [ ] Voice agent framework
-
-### Phase 5: Polish (Weeks 7-8)
-- [ ] Observability (metrics, logging)
-- [ ] Rate limiting
-- [ ] Advanced features
-- [ ] Production readiness
-
-See [PRD_VOICE_CALLING.md](./docs/PRD_VOICE_CALLING.md) for detailed timelines.
+- [API Design](./docs/API_DESIGN.md)
+- [Architecture](./docs/ARCHITECTURE.md)
+- [Data Models](./docs/DATA_MODELS.md)
+- [UI/UX Guide](./docs/design/UI_UX_GUIDE.md)
+- [Frontend README](./frontend/README.md)
 
 ## 🎯 Use Cases
 
-### For Developers
-- Build WhatsApp integrations for your business
-- Self-host for data privacy
-- Customize for specific needs
-- Integrate with existing systems
+- **Customer Support**: Handle WhatsApp inquiries
+- **Notifications**: Send order updates and alerts
+- **Marketing**: Send promotional messages via templates
+- **Integration**: Connect WhatsApp to your existing systems
+- **AI Assistants**: Build chatbots and automated responses
 
-### For AI Developers
-- Connect Claude to WhatsApp (messaging + voice)
-- Build conversational AI on WhatsApp
-- Create voice AI assistants
-- Automate customer support
+## 📝 Environment Variables
 
-### For Businesses
-- Send order confirmations
-- Provide customer support (text + voice)
-- Automated appointment reminders
-- Voice-enabled customer service
-- Call recording and quality monitoring
+See [.env.example](./.env.example) for all available configuration options.
 
-## 🎙️ Voice Calling Highlights
+Key variables:
+- `DB_DRIVER` - Database driver (sqlite/postgres)
+- `WHATSAPP_ACCESS_TOKEN` - Your WhatsApp API token
+- `WHATSAPP_PHONE_NUMBER_ID` - Your WhatsApp phone number ID
+- `SERVER_PORT` - API server port (default: 8080)
 
-The voice calling features make this project unique:
+## 🐛 Troubleshooting
 
-- **Bidirectional calls**: Both inbound and outbound
-- **Automatic recording**: Every call saved in multiple formats
-- **AI transcription**: Automatic speech-to-text with speaker identification
-- **Searchable history**: Find calls by searching transcript content
-- **Voice AI ready**: Built-in framework for voice agents (Pipecat-like)
-- **Claude integration**: Make calls and review transcripts via natural language
-- **Production quality**: Opus codec, STUN/TURN support, proper SIP handling
+### Database Issues
+- SQLite: Check file permissions for `./vibecoded.db`
+- PostgreSQL: Verify connection credentials in `.env`
+
+### WhatsApp API Issues
+- Verify your access token is valid
+- Check webhook URL is publicly accessible
+- Ensure phone number ID is correct
+
+### Frontend Connection
+- Verify backend is running on the correct port
+- Check CORS settings if accessing from different origin
+- Ensure API key is set in frontend `.env`
 
 ## 📝 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-You're free to use, modify, and distribute this code. The only requirement is to include the original copyright notice.
+MIT License - See [LICENSE](LICENSE) for details.
 
 ## 🙏 Acknowledgments
 
-- Built with [Claude](https://claude.ai) - vibecoding at its finest
-- WhatsApp Business API by Meta
-- Open source Go community
-- Pipecat (inspiration for voice agent framework)
-- pion/webrtc and sipgo libraries
-
-## 📬 Contact
-
-**Project Maintainer:** Ashok
-
-For questions about the project, please check the documentation first. Remember that this is a solo project without community support channels.
+Built with [Claude](https://claude.ai) - AI-assisted development at its finest!
 
 ---
 
-**⭐ If you find this useful, please star the repo and share it with others!**
+**⭐ If you find this useful, please star the repo!**
 
-Built with 🎵 vibecoding | MIT License | Solo-maintained
-
-**New:** 🎙️ Voice calling support coming in Phase 4!
+Built with 🍓 by Ashok | MIT License | Solo-maintained
