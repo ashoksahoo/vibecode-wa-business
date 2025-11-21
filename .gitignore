@@ -6,6 +6,8 @@
 *.dylib
 /bin/
 /dist/
+/server
+/cmd/server/server
 
 # Test binary, built with `go test -c`
 *.test
@@ -48,6 +50,9 @@ logs/
 # Database
 *.db
 *.sqlite
+*.db-shm
+*.db-wal
+vibecoded.db
 
 # Compiled Object files
 *.o

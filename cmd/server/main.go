@@ -46,11 +46,13 @@ func main() {
 		dbLogLevel = gormlogger.Info
 	}
 
-	db, err := database.NewConnection(cfg.GetDatabaseDSN(), dbLogLevel)
+	db, err := database.NewConnection(cfg.GetDatabaseDriver(), cfg.GetDatabaseDSN(), dbLogLevel)
 	if err != nil {
 		log.Fatal("Failed to connect to database", zap.Error(err))
 	}
-	log.Info("Database connection established")
+	log.Info("Database connection established",
+		zap.String("driver", cfg.GetDatabaseDriver()),
+	)
 
 	// Run auto migrations
 	if err := database.AutoMigrate(db); err != nil {

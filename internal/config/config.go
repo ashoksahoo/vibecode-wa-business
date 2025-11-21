@@ -30,6 +30,7 @@ type ServerConfig struct {
 
 // DatabaseConfig holds database configuration
 type DatabaseConfig struct {
+	Driver          string // sqlite or postgres
 	Host            string
 	Port            int
 	User            string
@@ -39,6 +40,7 @@ type DatabaseConfig struct {
 	MaxOpenConns    int
 	MaxIdleConns    int
 	ConnMaxLifetime time.Duration
+	SQLitePath      string // Path to SQLite database file
 }
 
 // WhatsAppConfig holds WhatsApp API configuration
@@ -106,12 +108,14 @@ func LoadConfig() (*Config, error) {
 			ShutdownTimeout: viper.GetDuration("SERVER_SHUTDOWN_TIMEOUT"),
 		},
 		Database: DatabaseConfig{
+			Driver:          viper.GetString("DB_DRIVER"),
 			Host:            viper.GetString("DB_HOST"),
 			Port:            viper.GetInt("DB_PORT"),
 			User:            viper.GetString("DB_USER"),
 			Password:        viper.GetString("DB_PASSWORD"),
 			Name:            viper.GetString("DB_NAME"),
 			SSLMode:         viper.GetString("DB_SSL_MODE"),
+			SQLitePath:      viper.GetString("DB_SQLITE_PATH"),
 			MaxOpenConns:    viper.GetInt("DB_MAX_OPEN_CONNS"),
 			MaxIdleConns:    viper.GetInt("DB_MAX_IDLE_CONNS"),
 			ConnMaxLifetime: viper.GetDuration("DB_CONN_MAX_LIFETIME"),
@@ -176,6 +180,12 @@ func setDefaults(config *Config) {
 		config.Server.ShutdownTimeout = 30 * time.Second
 	}
 
+	if config.Database.Driver == "" {
+		config.Database.Driver = "sqlite" // Default to SQLite for development
+	}
+	if config.Database.SQLitePath == "" {
+		config.Database.SQLitePath = "./vibecoded.db"
+	}
 	if config.Database.Port == 0 {
 		config.Database.Port = 5432
 	}
@@ -244,6 +254,11 @@ func (c *Config) Validate() error {
 
 // GetDatabaseDSN returns the database connection string
 func (c *Config) GetDatabaseDSN() string {
+	if c.Database.Driver == "sqlite" {
+		return c.Database.SQLitePath
+	}
+
+	// PostgreSQL DSN
 	return fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
 		c.Database.Host,
@@ -253,6 +268,11 @@ func (c *Config) GetDatabaseDSN() string {
 		c.Database.Name,
 		c.Database.SSLMode,
 	)
+}
+
+// GetDatabaseDriver returns the database driver name
+func (c *Config) GetDatabaseDriver() string {
+	return c.Database.Driver
 }
 
 // IsDevelopment returns true if running in development mode

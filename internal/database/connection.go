@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -27,8 +28,20 @@ func DefaultPoolConfig() PoolConfig {
 }
 
 // NewConnection creates a new database connection
-func NewConnection(dsn string, logLevel logger.LogLevel) (*gorm.DB, error) {
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+func NewConnection(driver, dsn string, logLevel logger.LogLevel) (*gorm.DB, error) {
+	var dialector gorm.Dialector
+
+	// Select the appropriate driver
+	switch driver {
+	case "sqlite":
+		dialector = sqlite.Open(dsn)
+	case "postgres":
+		dialector = postgres.Open(dsn)
+	default:
+		return nil, fmt.Errorf("unsupported database driver: %s (supported: sqlite, postgres)", driver)
+	}
+
+	db, err := gorm.Open(dialector, &gorm.Config{
 		Logger: logger.Default.LogMode(logLevel),
 		NowFunc: func() time.Time {
 			return time.Now().UTC()
