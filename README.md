@@ -157,32 +157,6 @@ Built with the **Strawberry Theme** design system:
 - **HTTP Client**: Axios
 - **Icons**: Lucide React
 
-## 📁 Project Structure
-
-```
-vibecoded-wa-client/
-├── backend/
-│   ├── cmd/server/          # Application entry point
-│   ├── internal/
-│   │   ├── api/             # HTTP handlers & routes
-│   │   ├── config/          # Configuration
-│   │   ├── database/        # Database connection
-│   │   ├── models/          # Data models
-│   │   ├── repositories/    # Data access layer
-│   │   ├── services/        # Business logic
-│   │   └── whatsapp/        # WhatsApp client
-│   └── pkg/                 # Utilities
-│
-└── frontend/
-    ├── src/
-    │   ├── components/      # UI components
-    │   ├── pages/           # Page components
-    │   ├── layouts/         # Layout components
-    │   ├── services/        # API client
-    │   └── types/           # TypeScript types
-    └── dist/                # Production build
-```
-
 ## 🔜 Coming Soon
 
 ### Voice Calling 🎙️
